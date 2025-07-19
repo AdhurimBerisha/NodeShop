@@ -1,22 +1,14 @@
 exports.getLogin = async (req, res, next) => {
-  try {
-    res.render("auth/login", {
-      pageTitle: "Login",
-      path: "/login",
-      formCSS: true,
-      authCSS: true,
-      isAuthenticated: req.isLoggedIn,
-    });
-  } catch (err) {
-    console.log("get login error:", err);
-  }
+  res.render("auth/login", {
+    pageTitle: "Login",
+    path: "/login",
+    formCSS: true,
+    authCSS: true,
+    isAuthenticated: req.isLoggedIn,
+  });
 };
 
 exports.postLogin = async (req, res, next) => {
-  try {
-    res.cookie("isLoggedIn", "true");
-    res.redirect("/");
-  } catch (err) {
-    console.log("post login error:", err);
-  }
+  req.session.isLoggedIn = true;
+  res.redirect("/");
 };
