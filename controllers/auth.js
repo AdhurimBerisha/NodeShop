@@ -1,14 +1,26 @@
-exports.getLogin = async (req, res, next) => {
+const User = require("../models/user");
+
+exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
-    pageTitle: "Login",
     path: "/login",
-    formCSS: true,
-    authCSS: true,
-    isAuthenticated: req.isLoggedIn,
+    pageTitle: "Login",
+    isAuthenticated: false,
   });
 };
 
-exports.postLogin = async (req, res, next) => {
-  req.session.isLoggedIn = true;
-  res.redirect("/");
+exports.postLogin = (req, res, next) => {
+  User.findById("6877caee945a13b586834a02")
+    .then((user) => {
+      req.session.isLoggedIn = true;
+      req.session.user = user;
+      res.redirect("/");
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.postLogout = (req, res, next) => {
+  req.session.destroy((err) => {
+    console.log(err);
+    res.redirect("/");
+  });
 };
