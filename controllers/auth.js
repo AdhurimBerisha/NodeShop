@@ -9,8 +9,8 @@ const transporter = nodemailer.createTransport({
   host: "sandbox.smtp.mailtrap.io",
   port: 587,
   auth: {
-    user: "31e4a1d076a961",
-    pass: "216b2a0a2cdbee",
+    user: "d5fdfe8c884bb6",
+    pass: "94e2274f134f6f",
   },
 });
 
@@ -64,7 +64,7 @@ exports.getSignup = (req, res, next) => {
       password: "",
       confirmPassword: "",
     },
-    validationError: [],
+    validationErrors: [],
   });
 };
 
