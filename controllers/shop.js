@@ -1,8 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const stripe = require("stripe")(
-  "sk_test_51RPMNzRYa88ev3W0QuhU6hB5QwKvcveGnMnHaZ64ekiDrBq399hicQOKvvpCUQPjXkG7UPJxJ2e6KrPnVud8PAvg00YqV5OnTw"
-);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const PDFDocument = require("pdfkit");
 
@@ -178,6 +176,7 @@ exports.getCheckout = (req, res, next) => {
         products: products,
         totalSum: total,
         sessionId: session.id,
+        stripePublicKey: process.env.STRIPE_PUBLIC_KEY,
       });
     })
     .catch((err) => {
